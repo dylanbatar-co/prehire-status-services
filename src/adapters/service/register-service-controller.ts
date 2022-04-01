@@ -16,16 +16,15 @@ export class RegisterServiceController implements Controller {
     this.registerService = registerService;
   }
 
-  async handle(
-    HttpRequest: HttpRequest,
-    HttpResponse: HttpResponse
-  ): Promise<HttpResponse> {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const serviceData = {
-        name: HttpRequest.body.name,
-        url: HttpRequest.body.url,
-        owner: HttpRequest.body.owner,
+        uuid: '1',
+        name: httpRequest.body.name,
+        url: httpRequest.body.url,
+        owner: httpRequest.body.owner,
       };
+
       const registerServiceResponse: RegisterServiceResponse =
         await this.registerService.registerServiceOnStore(serviceData);
 

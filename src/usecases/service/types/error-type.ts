@@ -7,3 +7,11 @@ export class RegisterServiceError extends Error implements UseCaseError {
     if (message) this.message = message;
   }
 }
+
+export class GetStatusServicesError extends Error implements UseCaseError {
+  constructor(message?: string) {
+    super('Get Status Services Error.');
+    this.name = 'GetStatusServiceError';
+    if (message) this.message = message;
+  }
+}

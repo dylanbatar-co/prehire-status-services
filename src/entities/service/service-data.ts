@@ -1,9 +1,10 @@
 export interface ServiceData {
+  uuid: string;
   name: string;
   url: string;
   owner: string;
   incidents?: incident[];
-  status?: 'success' | 'warn' | 'fail' | 'success';
+  status?: 'pass' | 'warn' | 'fail' | 'pass';
 }
 
 type incident = {
