@@ -1,8 +1,8 @@
 import { GetStatusServicesController } from '../../adapters/service/get-status-services-controller';
 import { RegisterServiceController } from '../../adapters/service/register-service-controller';
 import { InMemoryRepository } from '../../external/repositories/inMemoryRepository/in-memory-repository';
-import { GetStatusServices } from '../../usecases/service/get-status-service';
-import { RegisterServiceOnStore } from '../../usecases/service/register-service-on-store';
+import { GetStatusServices } from '../../usecases/service/search/get-status-service';
+import { RegisterServiceOnStore } from '../../usecases/service/register/register-service-on-store';
 
 const inMemoryRepository = new InMemoryRepository();
 

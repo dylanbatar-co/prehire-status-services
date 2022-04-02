@@ -1,3 +1,4 @@
 export interface UseCaseError {
-  message?: string;
+  message: string;
+  name: string;
 }

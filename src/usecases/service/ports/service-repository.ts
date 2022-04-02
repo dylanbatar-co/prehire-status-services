@@ -10,6 +10,7 @@ export interface ServiceRepository {
     service: ServiceData,
     description?: string
   ): Promise<ServiceData>;
+  findByUUID(uuid: string): Promise<ServiceData>;
   findServiceByOwner(owner: string): Promise<ServiceData[]>;
   updateService(id: string, data: ServiceData): Promise<ServiceData>;
 }

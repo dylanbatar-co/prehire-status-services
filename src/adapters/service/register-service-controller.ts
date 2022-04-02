@@ -1,4 +1,4 @@
-import { RegisterService } from '../../usecases/service/register-service';
+import { RegisterService } from '../../usecases/service/register/register-service';
 import { RegisterServiceError } from '../../usecases/service/types/error-type';
 import { RegisterServiceResponse } from '../../usecases/service/types/response-type';
 import {
