@@ -1,25 +1,48 @@
+import sinon from 'sinon';
+
 import { InMemoryRepository } from '../../../external/repositories/inMemoryRepository/in-memory-repository';
+import { AxiosServiceRequest } from '../../../external/requests/axios/axios-service-requests';
 import { GetStatusServices } from './get-status-service';
 import { RegisterServiceOnStore } from '../register/register-service-on-store';
 import { ServiceData } from '../../../entities/service/service-data';
 import { GetStatusServicesResponse } from '../types/response-type';
 
 describe('USECASE: Get status services', () => {
+  let AxiosServiceRequestStub: sinon.SinonStub;
+
+  beforeEach(() => {
+    AxiosServiceRequestStub = sinon.stub(
+      AxiosServiceRequest.prototype,
+      'requestStatus'
+    );
+  });
+
+  afterEach(() => {
+    AxiosServiceRequestStub.restore();
+  });
+
   it('Should return a services if the owner exists ', async () => {
-    const fakeService: ServiceData = {
+    const fakeServices: ServiceData = {
       uuid: '1',
       name: 'fake service',
       owner: 'fake owner',
       incidents: [],
-      url: 'www.fakeservice.test',
+      url: 'http://fakewebsite/health.com',
       status: 'pass',
     };
 
-    const inMemoryRepository = new InMemoryRepository();
-    const registerService = new RegisterServiceOnStore(inMemoryRepository);
-    const getStatusServices = new GetStatusServices(inMemoryRepository);
+    AxiosServiceRequestStub.returns({ status: 'pass' });
 
-    await registerService.registerServiceOnStore(fakeService);
+    const inMemoryRepository = new InMemoryRepository();
+    const servicesRequest = new AxiosServiceRequest();
+
+    const registerService = new RegisterServiceOnStore(inMemoryRepository);
+    const getStatusServices = new GetStatusServices(
+      inMemoryRepository,
+      servicesRequest
+    );
+
+    await registerService.registerServiceOnStore(fakeServices);
 
     const OWNER_TO_FIND = 'fake owner';
 
@@ -33,7 +56,12 @@ describe('USECASE: Get status services', () => {
 
   it('Should return a empty array if the owner doen`t exist', async () => {
     const inMemoryRepository = new InMemoryRepository();
-    const getStatusServices = new GetStatusServices(inMemoryRepository);
+    const servicesRequest = new AxiosServiceRequest();
+
+    const getStatusServices = new GetStatusServices(
+      inMemoryRepository,
+      servicesRequest
+    );
 
     const OWNER_TO_FIND = 'not exist owner';
 

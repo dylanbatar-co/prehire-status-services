@@ -3,6 +3,7 @@ import { RegisterServiceController } from '../../adapters/service/register-servi
 import { InMemoryRepository } from '../../external/repositories/inMemoryRepository/in-memory-repository';
 import { GetStatusServices } from '../../usecases/service/search/get-status-service';
 import { RegisterServiceOnStore } from '../../usecases/service/register/register-service-on-store';
+import { AxiosServiceRequest } from '../../external/requests/axios/axios-service-requests';
 
 const inMemoryRepository = new InMemoryRepository();
 
@@ -15,7 +16,11 @@ export const makeRegisterServiceController = (): RegisterServiceController => {
 };
 
 export const makeGetStatusServices = (): GetStatusServicesController => {
-  const getStatusServices = new GetStatusServices(inMemoryRepository);
+  const axiosServiceRequest = new AxiosServiceRequest();
+  const getStatusServices = new GetStatusServices(
+    inMemoryRepository,
+    axiosServiceRequest
+  );
   const getStatusController = new GetStatusServicesController(
     getStatusServices
   );

@@ -42,7 +42,7 @@ export class InMemoryRepository implements ServiceRepository {
   async updateService(id: string, data: ServiceData): Promise<ServiceData> {
     this.data
       .filter((service) => service.uuid === id)
-      .map((service) => ({ ...data }));
+      .map((service) => ({ ...service, data }));
     return data;
   }
 
