@@ -1,15 +1,9 @@
+import { IncidentData } from "../incident/incident-data";
 export interface ServiceData {
   uuid: string;
   name: string;
   url: string;
   owner: string;
-  incidents?: incident[];
+  incidents?: IncidentData[];
   status?: 'pass' | 'warn' | 'fail' | 'pass';
 }
-
-type incident = {
-  fixed: boolean;
-  name: string;
-  description?: string;
-  date: Date;
-};
