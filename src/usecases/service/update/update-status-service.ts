@@ -16,11 +16,9 @@ export class UpdateStatusService implements UpdateStatusService {
       }
 
       if (status[index].status === 'fail') {
-        const registerEntity = new RegisterIncident(
-          this.serviceRepository,
-          service
-        );
+        const registerEntity = new RegisterIncident(this.serviceRepository,service);
         registerEntity.registerNewIncident();
+        return service;
       }
 
       return { ...service, status: status[index].status };
