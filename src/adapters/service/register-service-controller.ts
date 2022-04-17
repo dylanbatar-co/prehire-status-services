@@ -1,3 +1,4 @@
+import { ServiceData } from '../../entities/service/service-data';
 import { RegisterService } from '../../usecases/service/register/register-service';
 import { RegisterServiceError } from '../../usecases/service/types/error-type';
 import { RegisterServiceResponse } from '../../usecases/service/types/response-type';
@@ -18,11 +19,13 @@ export class RegisterServiceController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const serviceData = {
+      const serviceData: ServiceData = {
         uuid: '1',
         name: httpRequest.body.name,
         url: httpRequest.body.url,
         owner: httpRequest.body.owner,
+        incidents: [],
+        status: 'pass',
       };
 
       const registerServiceResponse: RegisterServiceResponse =

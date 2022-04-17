@@ -4,6 +4,6 @@ export interface ServiceData {
   name: string;
   url: string;
   owner: string;
-  incidents?: IncidentData[];
-  status?: 'pass' | 'warn' | 'fail' | 'pass';
+  incidents: IncidentData[];
+  status: 'pass' | 'warn' | 'fail' | 'pass';
 }
