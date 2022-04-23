@@ -11,18 +11,70 @@ export class UpdateStatusService implements UpdateStatusService {
 
   private handlerUpdate(services: ServiceData[], status: any[]): ServiceData[] {
     return services.map((service: ServiceData, index: number) => {
-      if (service.status === status[index].status) {
+      if (this.isWithOutIncident(service, status[index].status)) {
+        return { ...service, status: status[index].status };
+      }
+
+      if (this.isNewIncident(service, status[index].status)) {
+        service.status = 'fail';
+        const registerIncidentEntity = new RegisterIncident(
+          this.serviceRepository,
+          service
+        );
+        registerIncidentEntity.registerNewIncident();
         return service;
       }
 
-      if (status[index].status === 'fail') {
-        const registerEntity = new RegisterIncident(this.serviceRepository,service);
-        registerEntity.registerNewIncident();
+      if (this.keepFailStatus(service, status[index].status)) {
         return service;
       }
 
-      return { ...service, status: status[index].status };
+      if (this.fixIncident(status[index].status)) {
+        // update incident
+        console.log('UPDATING INCIDENT');
+      }
     });
+  }
+
+  private isWithOutIncident(service: ServiceData, status: string): boolean {
+    const hasIncident = service.incidents.filter((incident) => incident.fixed);
+
+    if (!hasIncident.length && service.status !== 'fail' && status !== 'fail') {
+      return true;
+    }
+
+    return false;
+  }
+
+  private isNewIncident(service: ServiceData, status: string): boolean {
+    const hasActiveIncident = service.incidents.filter(
+      (incident) => !incident.fixed
+    );
+
+    if (
+      (!hasActiveIncident.length && status === 'fail') ||
+      (service.status !== 'pass' && status === 'fail' && !hasActiveIncident.length)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private keepFailStatus(service: ServiceData, status: string): boolean {
+    if (service.status === 'fail' && status === 'fail') {
+      return true;
+    }
+
+    return false;
+  }
+
+  private fixIncident(status: string): boolean {
+    if (status !== 'fail') {
+      return true;
+    }
+
+    return false;
   }
 
   public async updateStatus(
