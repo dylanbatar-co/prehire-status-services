@@ -13,7 +13,7 @@ jobs:
       - name: "Cancel previous workflows"
       - uses: styfle/cancel-workflow-action@0.9.1
         with:
-          access_token: ${{GITHUB_TOKEN}}
+          access_token: ${{secrets.GITHUB_TOKEN}}
 
   install-dependencies:
     runs-on: ubuntu-latest
