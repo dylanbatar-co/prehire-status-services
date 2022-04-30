@@ -6,3 +6,10 @@ export class RegisterNewIncidentError extends Error implements UseCaseError {
     this.name = 'RegisterNewIncidentError';
   }
 }
+
+export class UpdateIncidentError extends Error implements UseCaseError {
+  constructor(message: string) {
+    super(message);
+    this.name = 'UpdateIncidentError';
+  }
+}
