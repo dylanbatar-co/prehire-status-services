@@ -1,5 +1,5 @@
 import { IncidentData } from './incident-data';
-
+import { v4 as uuidv4 } from 'uuid';
 export class Incident {
   constructor() {}
 
@@ -13,6 +13,7 @@ export class Incident {
     }
 
     let incidentObj: IncidentData = {
+      id: uuidv4(),
       name,
       fixed,
       description,

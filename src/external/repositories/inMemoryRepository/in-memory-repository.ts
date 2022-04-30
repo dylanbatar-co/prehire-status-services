@@ -1,5 +1,6 @@
 import { ServiceData } from '../../../entities/service/service-data';
 import { ServiceRepository } from '../../../usecases/service/ports/service-repository';
+import { v4 as uuidv4 } from 'uuid';
 
 export class InMemoryRepository implements ServiceRepository {
   private data: ServiceData[] = [];
@@ -14,6 +15,7 @@ export class InMemoryRepository implements ServiceRepository {
     description?: string
   ): Promise<ServiceData> {
     const defaultIncident = {
+      id: uuidv4(),
       fixed: false,
       name: service.name,
       description,
@@ -24,7 +26,9 @@ export class InMemoryRepository implements ServiceRepository {
       if (service.uuid !== service.uuid) {
         return service;
       }
-      service.incidents?.push(defaultIncident);
+      if (!service.incidents.length) {
+        service.incidents?.push(defaultIncident);
+      }
     });
 
     return service;
@@ -46,10 +50,26 @@ export class InMemoryRepository implements ServiceRepository {
     return data;
   }
 
-  updateIncident(
-    service: ServiceData,
-    description?: string
-  ): Promise<ServiceData> {
-    throw new Error('Method not implemented.');
+  async updateIncident(id: string, data?: ServiceData): Promise<ServiceData> {
+    let serviceIdx: number;
+    let incidentIdx: number;
+
+    const [service] = this.data.filter((service, idx) => {
+      if (service.uuid === data.uuid) {
+        serviceIdx = idx;
+        return service;
+      }
+    });
+
+    service.incidents.forEach((incident, idx) => {
+      if (incident.id === id) {
+        incidentIdx = idx;
+      }
+    });
+
+    this.data[serviceIdx].incidents[incidentIdx] =
+      data.incidents[incidentIdx];
+
+    return data;
   }
 }
