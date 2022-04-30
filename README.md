@@ -11,6 +11,9 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 - [ ] Send Report to slack channels
 - [ ] Create PDF on demand with the status services
 
+## TO DO
+- [ ] Remove UUID like dependecy 
+
 ## Stack
 
 Tecnology stack for this repos
