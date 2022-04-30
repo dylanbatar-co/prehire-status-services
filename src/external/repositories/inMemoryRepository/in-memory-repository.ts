@@ -67,8 +67,7 @@ export class InMemoryRepository implements ServiceRepository {
       }
     });
 
-    this.data[serviceIdx].incidents[incidentIdx] =
-      data.incidents[incidentIdx];
+    this.data[serviceIdx].incidents[incidentIdx] = data.incidents[incidentIdx];
 
     return data;
   }

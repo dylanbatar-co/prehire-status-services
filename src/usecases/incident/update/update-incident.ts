@@ -20,8 +20,7 @@ export class UpdateIncident {
 
     await this.serviceRepository
       .updateIncident(incident.id, updateData)
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         new UpdateIncidentError('Update Incident Error');
       });
     return data;
