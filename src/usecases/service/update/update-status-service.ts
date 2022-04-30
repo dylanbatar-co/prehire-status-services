@@ -1,5 +1,6 @@
 import { ServiceData } from '../../../entities/service/service-data';
 import { RegisterIncident } from '../../incident/register/register-incident';
+import { UpdateIncident } from '../../incident/update/update-incident';
 import { ServiceRepository } from '../ports/service-repository';
 
 export class UpdateStatusService implements UpdateStatusService {
@@ -30,8 +31,10 @@ export class UpdateStatusService implements UpdateStatusService {
       }
 
       if (this.fixIncident(status[index].status)) {
-        // update incident
-        console.log('UPDATING INCIDENT');
+        service.status = status[index].status;
+        const updateIncidentEntity = new UpdateIncident(this.serviceRepository);
+        updateIncidentEntity.updateIncident(service);
+        return service;
       }
     });
   }
@@ -53,7 +56,9 @@ export class UpdateStatusService implements UpdateStatusService {
 
     if (
       (!hasActiveIncident.length && status === 'fail') ||
-      (service.status !== 'pass' && status === 'fail' && !hasActiveIncident.length)
+      (service.status !== 'pass' &&
+        status === 'fail' &&
+        !hasActiveIncident.length)
     ) {
       return true;
     }

@@ -56,6 +56,7 @@ describe('Update status service USE CASE', () => {
         url: 'www.fakeservice.test',
         incidents: [
           {
+            id: '1',
             date: new Date(),
             fixed: false,
             name: 'fake service',
@@ -71,7 +72,6 @@ describe('Update status service USE CASE', () => {
       { status: 'fail' },
     ]);
 
-    console.log(services[0].incidents);
     expect(services[0].status).toBe('fail');
   });
 
@@ -85,8 +85,9 @@ describe('Update status service USE CASE', () => {
         url: 'www.fakeservice.test',
         incidents: [
           {
+            id: '1',
             date: new Date(),
-            fixed: true,
+            fixed: false,
             name: 'fake service',
           },
         ],
@@ -94,12 +95,12 @@ describe('Update status service USE CASE', () => {
     ];
 
     const inMemoryRepository = new InMemoryRepository();
+    inMemoryRepository.create(fakeServices[0])
     const updateStatusService = new UpdateStatusService(inMemoryRepository);
 
     const services = await updateStatusService.updateStatus(fakeServices, [
       { status: 'pass' },
     ]);
-
     expect(services[0].status).toBe('pass');
   });
 });
