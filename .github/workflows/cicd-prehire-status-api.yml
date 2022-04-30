@@ -48,6 +48,7 @@ jobs:
 
   test-suit:
     runs-on: ubuntu-latest
+    needs: [install-dependencies]
     strategy:
       matrix:
         node-version: [12.x]
