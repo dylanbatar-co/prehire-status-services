@@ -5,12 +5,12 @@ export const registerServiceValidation = {
     name: Joi.string().required(),
     url: Joi.string().required(),
     owner: Joi.string().required(),
-    status: Joi.string().default('pass'),
-  }),
+    status: Joi.string().default('pass')
+  })
 };
 
 export const getStatusServicesValidation = {
   [Segments.PARAMS]: Joi.object().keys({
-    owner: Joi.string().required(),
-  }),
+    owner: Joi.string().required()
+  })
 };

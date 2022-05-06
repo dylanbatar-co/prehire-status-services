@@ -1,6 +1,6 @@
 import { IncidentData } from '../../../entities/incident/incident-data';
 import { ServiceData } from '../../../entities/service/service-data';
-import { ServiceRepository } from '../../service/ports/service-repository';
+import { ServiceRepository } from '../../ports/service-repository';
 import { UpdateIncidentError } from '../types/error-type';
 import { UpdateIncidentResponse } from '../types/response-type';
 
@@ -11,18 +11,14 @@ export class UpdateIncident {
     this.serviceRepository = serviceRepository;
   }
 
-  public async updateIncident(
-    data?: ServiceData
-  ): Promise<UpdateIncidentResponse> {
+  public async updateIncident(data?: ServiceData): Promise<UpdateIncidentResponse> {
     const lastIncident = this.getLastIncidentOpen(data);
     const incident = this.changeIncidentStatus(lastIncident, data.status);
     const updateData = this.formatDataForUpdate(data, incident);
 
-    await this.serviceRepository
-      .updateIncident(incident.id, updateData)
-      .catch(() => {
-        new UpdateIncidentError('Update Incident Error');
-      });
+    await this.serviceRepository.updateIncident(incident.id, updateData).catch(() => {
+      new UpdateIncidentError('Update Incident Error');
+    });
     return data;
   }
 
@@ -31,10 +27,7 @@ export class UpdateIncident {
     return incident;
   }
 
-  private changeIncidentStatus(
-    incident: IncidentData,
-    status: string
-  ): IncidentData {
+  private changeIncidentStatus(incident: IncidentData, status: string): IncidentData {
     const updateIncident: IncidentData = { ...incident };
     if (status === 'fail' && !incident.fixed) {
       updateIncident.fixed = false;
@@ -44,10 +37,7 @@ export class UpdateIncident {
     return updateIncident;
   }
 
-  private formatDataForUpdate(
-    service: ServiceData,
-    incidentUpdate: IncidentData
-  ): ServiceData {
+  private formatDataForUpdate(service: ServiceData, incidentUpdate: IncidentData): ServiceData {
     const { id } = this.getLastIncidentOpen(service);
 
     const incidentsUpdate = service.incidents.map((incident) => {
@@ -60,7 +50,7 @@ export class UpdateIncident {
 
     const serviceIncidentsUpdated: ServiceData = {
       ...service,
-      incidents: incidentsUpdate,
+      incidents: incidentsUpdate
     };
 
     return serviceIncidentsUpdated;

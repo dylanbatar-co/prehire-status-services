@@ -1,8 +1,11 @@
 import { ServiceData } from '../../../entities/service/service-data';
-import { ServiceRepository } from '../../../usecases/service/ports/service-repository';
+import { ServiceRepository } from '../../../usecases/ports/service-repository';
 import { v4 as uuidv4 } from 'uuid';
 
 export class InMemoryRepository implements ServiceRepository {
+  getIncidentsByMonth(month: number, limit: number): Promise<ServiceData> {
+    throw new Error('Method not implemented.');
+  }
   private data: ServiceData[] = [];
 
   async create(service: ServiceData): Promise<ServiceData> {
@@ -10,16 +13,13 @@ export class InMemoryRepository implements ServiceRepository {
     return service;
   }
 
-  async createIncident(
-    service: ServiceData,
-    description?: string
-  ): Promise<ServiceData> {
+  async createIncident(service: ServiceData, description?: string): Promise<ServiceData> {
     const defaultIncident = {
       id: uuidv4(),
       fixed: false,
       name: service.name,
       description,
-      date: new Date(),
+      date: new Date()
     };
 
     this.data.forEach((service) => {
@@ -44,9 +44,7 @@ export class InMemoryRepository implements ServiceRepository {
   }
 
   async updateService(id: string, data: ServiceData): Promise<ServiceData> {
-    this.data
-      .filter((service) => service.uuid === id)
-      .map((service) => ({ ...service, data }));
+    this.data.filter((service) => service.uuid === id).map((service) => ({ ...service, data }));
     return data;
   }
 

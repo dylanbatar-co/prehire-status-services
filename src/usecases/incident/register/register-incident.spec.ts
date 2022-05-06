@@ -11,10 +11,7 @@ describe('Register Incident USE CASE', () => {
   let createIncidentStub: sinon.SinonStub;
 
   beforeEach(() => {
-    createIncidentStub = sinon.stub(
-      InMemoryRepository.prototype,
-      'createIncident'
-    );
+    createIncidentStub = sinon.stub(InMemoryRepository.prototype, 'createIncident');
   });
 
   afterEach(() => {
@@ -28,18 +25,14 @@ describe('Register Incident USE CASE', () => {
       owner: 'Fake owener',
       url: 'Fake url',
       status: 'fail',
-      incidents: [],
+      incidents: []
     };
 
     const inMemoryRepository = new InMemoryRepository();
 
-    const registerEntity = new RegisterIncident(
-      inMemoryRepository,
-      fakeService
-    );
+    const registerEntity = new RegisterIncident(inMemoryRepository, fakeService);
 
-    const registerIncidentResponse: RegisterNewIncidentResponse =
-      await registerEntity.registerNewIncident();
+    const registerIncidentResponse: RegisterNewIncidentResponse = await registerEntity.registerNewIncident();
 
     const { incidents } = registerIncidentResponse as ServiceData;
 
@@ -53,19 +46,15 @@ describe('Register Incident USE CASE', () => {
       owner: 'Fake owener',
       url: 'Fake url',
       status: 'fail',
-      incidents: [],
+      incidents: []
     };
 
     createIncidentStub.throws();
     const inMemoryRepository = new InMemoryRepository();
 
-    const registerEntity = new RegisterIncident(
-      inMemoryRepository,
-      fakeService
-    );
+    const registerEntity = new RegisterIncident(inMemoryRepository, fakeService);
 
-    const registerIncidentResponse: RegisterNewIncidentResponse =
-      await registerEntity.registerNewIncident();
+    const registerIncidentResponse: RegisterNewIncidentResponse = await registerEntity.registerNewIncident();
 
     const { message } = registerIncidentResponse as RegisterNewIncidentError;
 

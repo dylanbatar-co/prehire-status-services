@@ -11,15 +11,12 @@ describe('USECASE: Register Service on store', () => {
       owner: 'fake owner',
       incidents: [],
       url: 'www.fakeservice.test',
-      status: 'pass',
+      status: 'pass'
     };
 
     const inMemoryRepository = new InMemoryRepository();
-    const registerServiceOnStore = new RegisterServiceOnStore(
-      inMemoryRepository
-    );
-    const registerServiceResponse =
-      await registerServiceOnStore.registerServiceOnStore(fakeService);
+    const registerServiceOnStore = new RegisterServiceOnStore(inMemoryRepository);
+    const registerServiceResponse = await registerServiceOnStore.registerServiceOnStore(fakeService);
 
     expect(registerServiceResponse).toEqual(fakeService);
   });
@@ -31,17 +28,16 @@ describe('USECASE: Register Service on store', () => {
       owner: 'fake owner',
       incidents: [],
       url: 'www.fakeservice.test',
-      status: 'pass',
+      status: 'pass'
     };
 
     const inMemoryRepository = new InMemoryRepository();
-    const registerServiceOnStore = new RegisterServiceOnStore(
-      inMemoryRepository
-    );
+    const registerServiceOnStore = new RegisterServiceOnStore(inMemoryRepository);
 
     await registerServiceOnStore.registerServiceOnStore(fakeService);
-    const registerServiceResponse: RegisterServiceResponse =
-      await registerServiceOnStore.registerServiceOnStore(fakeService);
+    const registerServiceResponse: RegisterServiceResponse = await registerServiceOnStore.registerServiceOnStore(
+      fakeService
+    );
 
     const { message } = registerServiceResponse as RegisterServiceError;
 

@@ -1,5 +1,5 @@
 import { ServiceData } from '../../../entities/service/service-data';
-import { ServiceRepository } from '../ports/service-repository';
+import { ServiceRepository } from '../../ports/service-repository';
 import { RegisterService } from './register-service';
 import { RegisterServiceResponse } from '../types/response-type';
 import { RegisterServiceError } from '../types/error-type';
@@ -11,12 +11,10 @@ export class RegisterServiceOnStore implements RegisterService {
     this.serviceRepository = serviceRepository;
   }
 
-  async registerServiceOnStore(
-    serviceData: ServiceData
-  ): Promise<RegisterServiceResponse> {
+  async registerServiceOnStore(serviceData: ServiceData): Promise<RegisterServiceResponse> {
     // check if this service exist
     const service = await this.serviceRepository.findByUUID(serviceData.uuid);
-    
+
     if (service) {
       return new RegisterServiceError('Service already created');
     }
