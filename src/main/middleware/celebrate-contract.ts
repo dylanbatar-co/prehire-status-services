@@ -2,7 +2,7 @@ import { celebrate } from 'celebrate';
 
 const SCHEMA_OPTIONS = {
   abortEarly: false,
-  allowUnknow: true,
+  allowUnknow: true
 };
 
 export const validateContract = (contract: any) => {

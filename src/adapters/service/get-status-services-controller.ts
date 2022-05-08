@@ -1,11 +1,7 @@
 import { GetStatusServices } from '../../usecases/service/search/get-status-service';
 import { GetStatusServicesError } from '../../usecases/service/types/error-type';
 import { GetStatusServicesResponse } from '../../usecases/service/types/response-type';
-import {
-  badRequest,
-  serverError,
-  successRequest,
-} from '../helpers/http.helper';
+import { badRequest, serverError, successRequest } from '../helpers/http.helper';
 import { Controller } from '../ports/controller';
 import { HttpRequest, HttpResponse } from '../ports/http';
 
@@ -17,8 +13,9 @@ export class GetStatusServicesController implements Controller {
 
   async handle(HttpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const getServicesResponse: GetStatusServicesResponse =
-        await this.getServices.getStatusServices(HttpRequest.params.owner);
+      const getServicesResponse: GetStatusServicesResponse = await this.getServices.getStatusServices(
+        HttpRequest.params.owner
+      );
 
       if (getServicesResponse instanceof GetStatusServicesError) {
         return badRequest(getServicesResponse);

@@ -11,10 +11,7 @@ describe('USECASE: Get status services', () => {
   let AxiosServiceRequestStub: sinon.SinonStub;
 
   beforeEach(() => {
-    AxiosServiceRequestStub = sinon.stub(
-      AxiosServiceRequest.prototype,
-      'requestStatus'
-    );
+    AxiosServiceRequestStub = sinon.stub(AxiosServiceRequest.prototype, 'requestStatus');
   });
 
   afterEach(() => {
@@ -28,7 +25,7 @@ describe('USECASE: Get status services', () => {
       owner: 'fake owner',
       incidents: [],
       url: 'http://fakewebsite/health.com',
-      status: 'pass',
+      status: 'pass'
     };
 
     AxiosServiceRequestStub.returns({ status: 'pass' });
@@ -37,17 +34,15 @@ describe('USECASE: Get status services', () => {
     const servicesRequest = new AxiosServiceRequest();
 
     const registerService = new RegisterServiceOnStore(inMemoryRepository);
-    const getStatusServices = new GetStatusServices(
-      inMemoryRepository,
-      servicesRequest
-    );
+    const getStatusServices = new GetStatusServices(inMemoryRepository, servicesRequest);
 
     await registerService.registerServiceOnStore(fakeServices);
 
     const OWNER_TO_FIND = 'fake owner';
 
-    const getStatusServiceResponse: GetStatusServicesResponse =
-      await getStatusServices.getStatusServices(OWNER_TO_FIND);
+    const getStatusServiceResponse: GetStatusServicesResponse = await getStatusServices.getStatusServices(
+      OWNER_TO_FIND
+    );
 
     getStatusServiceResponse as ServiceData[];
 
@@ -58,15 +53,13 @@ describe('USECASE: Get status services', () => {
     const inMemoryRepository = new InMemoryRepository();
     const servicesRequest = new AxiosServiceRequest();
 
-    const getStatusServices = new GetStatusServices(
-      inMemoryRepository,
-      servicesRequest
-    );
+    const getStatusServices = new GetStatusServices(inMemoryRepository, servicesRequest);
 
     const OWNER_TO_FIND = 'not exist owner';
 
-    const getStatusServiceResponse: GetStatusServicesResponse =
-      await getStatusServices.getStatusServices(OWNER_TO_FIND);
+    const getStatusServiceResponse: GetStatusServicesResponse = await getStatusServices.getStatusServices(
+      OWNER_TO_FIND
+    );
 
     getStatusServiceResponse as ServiceData[];
 

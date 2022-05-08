@@ -1,7 +1,7 @@
 import { ServiceData } from '../../../entities/service/service-data';
 import { RegisterIncident } from '../../incident/register/register-incident';
 import { UpdateIncident } from '../../incident/update/update-incident';
-import { ServiceRepository } from '../ports/service-repository';
+import { ServiceRepository } from '../../ports/service-repository';
 
 export class UpdateStatusService implements UpdateStatusService {
   private readonly serviceRepository: ServiceRepository;
@@ -18,10 +18,7 @@ export class UpdateStatusService implements UpdateStatusService {
 
       if (this.isNewIncident(service, status[index].status)) {
         service.status = 'fail';
-        const registerIncidentEntity = new RegisterIncident(
-          this.serviceRepository,
-          service
-        );
+        const registerIncidentEntity = new RegisterIncident(this.serviceRepository, service);
         registerIncidentEntity.registerNewIncident();
         return service;
       }
@@ -50,15 +47,11 @@ export class UpdateStatusService implements UpdateStatusService {
   }
 
   private isNewIncident(service: ServiceData, status: string): boolean {
-    const hasActiveIncident = service.incidents.filter(
-      (incident) => !incident.fixed
-    );
+    const hasActiveIncident = service.incidents.filter((incident) => !incident.fixed);
 
     if (
       (!hasActiveIncident.length && status === 'fail') ||
-      (service.status !== 'pass' &&
-        status === 'fail' &&
-        !hasActiveIncident.length)
+      (service.status !== 'pass' && status === 'fail' && !hasActiveIncident.length)
     ) {
       return true;
     }
@@ -82,10 +75,7 @@ export class UpdateStatusService implements UpdateStatusService {
     return false;
   }
 
-  public async updateStatus(
-    services: ServiceData[],
-    status: any[]
-  ): Promise<ServiceData[]> {
+  public async updateStatus(services: ServiceData[], status: any[]): Promise<ServiceData[]> {
     if (!services.length) {
       return [];
     }

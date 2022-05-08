@@ -9,20 +9,13 @@ const inMemoryRepository = new InMemoryRepository();
 
 export const makeRegisterServiceController = (): RegisterServiceController => {
   const registerServiceOnStore = new RegisterServiceOnStore(inMemoryRepository);
-  const registerServiceController = new RegisterServiceController(
-    registerServiceOnStore
-  );
+  const registerServiceController = new RegisterServiceController(registerServiceOnStore);
   return registerServiceController;
 };
 
 export const makeGetStatusServices = (): GetStatusServicesController => {
   const axiosServiceRequest = new AxiosServiceRequest();
-  const getStatusServices = new GetStatusServices(
-    inMemoryRepository,
-    axiosServiceRequest
-  );
-  const getStatusController = new GetStatusServicesController(
-    getStatusServices
-  );
+  const getStatusServices = new GetStatusServices(inMemoryRepository, axiosServiceRequest);
+  const getStatusController = new GetStatusServicesController(getStatusServices);
   return getStatusController;
 };

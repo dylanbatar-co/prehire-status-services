@@ -7,7 +7,7 @@ export const adapterRouter = (controller: Controller) => {
     const HttpRequest: HttpRequest = {
       body: req.body,
       params: req.params,
-      query: req.query,
+      query: req.query
     };
 
     const httpResponse = await controller.handle(HttpRequest);

@@ -11,16 +11,14 @@ describe('Update status service USE CASE', () => {
         owner: 'fake owner',
         status: 'pass',
         url: 'www.fakeservice.test',
-        incidents: [],
-      },
+        incidents: []
+      }
     ];
 
     const inMemoryRepository = new InMemoryRepository();
     const updateStatusService = new UpdateStatusService(inMemoryRepository);
 
-    const services = await updateStatusService.updateStatus(fakeServices, [
-      { status: 'pass' },
-    ]);
+    const services = await updateStatusService.updateStatus(fakeServices, [{ status: 'pass' }]);
 
     expect(services[0].status).toBe('pass');
   });
@@ -33,16 +31,14 @@ describe('Update status service USE CASE', () => {
         owner: 'fake owner',
         status: 'pass',
         url: 'www.fakeservice.test',
-        incidents: [],
-      },
+        incidents: []
+      }
     ];
 
     const inMemoryRepository = new InMemoryRepository();
     const updateStatusService = new UpdateStatusService(inMemoryRepository);
 
-    const services = await updateStatusService.updateStatus(fakeServices, [
-      { status: 'fail' },
-    ]);
+    const services = await updateStatusService.updateStatus(fakeServices, [{ status: 'fail' }]);
     expect(services[0].status).toBe('fail');
   });
 
@@ -59,18 +55,16 @@ describe('Update status service USE CASE', () => {
             id: '1',
             date: new Date(),
             fixed: false,
-            name: 'fake service',
-          },
-        ],
-      },
+            name: 'fake service'
+          }
+        ]
+      }
     ];
 
     const inMemoryRepository = new InMemoryRepository();
     const updateStatusService = new UpdateStatusService(inMemoryRepository);
 
-    const services = await updateStatusService.updateStatus(fakeServices, [
-      { status: 'fail' },
-    ]);
+    const services = await updateStatusService.updateStatus(fakeServices, [{ status: 'fail' }]);
 
     expect(services[0].status).toBe('fail');
   });
@@ -88,19 +82,17 @@ describe('Update status service USE CASE', () => {
             id: '1',
             date: new Date(),
             fixed: false,
-            name: 'fake service',
-          },
-        ],
-      },
+            name: 'fake service'
+          }
+        ]
+      }
     ];
 
     const inMemoryRepository = new InMemoryRepository();
-    inMemoryRepository.create(fakeServices[0])
+    inMemoryRepository.create(fakeServices[0]);
     const updateStatusService = new UpdateStatusService(inMemoryRepository);
 
-    const services = await updateStatusService.updateStatus(fakeServices, [
-      { status: 'pass' },
-    ]);
+    const services = await updateStatusService.updateStatus(fakeServices, [{ status: 'pass' }]);
     expect(services[0].status).toBe('pass');
   });
 });

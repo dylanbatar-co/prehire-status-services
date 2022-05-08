@@ -1,6 +1,9 @@
-import { ServiceData } from '../../../entities/service/service-data';
-import { ServiceRepository } from '../../../usecases/service/ports/service-repository';
 import { v4 as uuidv4 } from 'uuid';
+
+import { ServiceData } from '../../../entities/service/service-data';
+import { IncidentData } from '../../../entities/incident/incident-data';
+import { ServiceRepository } from '../../../usecases/ports/service-repository';
+import { MONTHS } from '../../../shared/utils';
 
 export class InMemoryRepository implements ServiceRepository {
   private data: ServiceData[] = [];
@@ -10,16 +13,38 @@ export class InMemoryRepository implements ServiceRepository {
     return service;
   }
 
-  async createIncident(
-    service: ServiceData,
-    description?: string
-  ): Promise<ServiceData> {
+  async getIncidentsByMonth(month: Date, limit: number): Promise<{ [key: string]: IncidentData }[]> {
+    const incidentsByDate: { [key: string]: IncidentData }[] = [];
+
+    for (const service of this.data) {
+      const incidentByDate = service.incidents
+        .filter((incident) => {
+          if (incident.date.getTime() >= month.getTime()) {
+            return incident;
+          }
+        })
+        .map((incident) => {
+          const monthNumber = incident.date.getMonth() + 1;
+          const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
+
+          const mapIncident = { [monthName]: incident };
+          return mapIncident;
+        });
+
+      if (incidentByDate.length) {
+        incidentsByDate.push(...incidentByDate);
+      }
+    }
+
+    return incidentsByDate;
+  }
+  async createIncident(service: ServiceData, description?: string): Promise<ServiceData> {
     const defaultIncident = {
       id: uuidv4(),
       fixed: false,
       name: service.name,
       description,
-      date: new Date(),
+      date: new Date()
     };
 
     this.data.forEach((service) => {
@@ -44,9 +69,7 @@ export class InMemoryRepository implements ServiceRepository {
   }
 
   async updateService(id: string, data: ServiceData): Promise<ServiceData> {
-    this.data
-      .filter((service) => service.uuid === id)
-      .map((service) => ({ ...service, data }));
+    this.data.filter((service) => service.uuid === id).map((service) => ({ ...service, data }));
     return data;
   }
 

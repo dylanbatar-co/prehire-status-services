@@ -1,4 +1,4 @@
-import { IncidentData } from "../incident/incident-data";
+import { IncidentData } from '../incident/incident-data';
 export interface ServiceData {
   uuid: string;
   name: string;

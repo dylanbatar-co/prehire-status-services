@@ -2,11 +2,7 @@ import { ServiceData } from '../../entities/service/service-data';
 import { RegisterService } from '../../usecases/service/register/register-service';
 import { RegisterServiceError } from '../../usecases/service/types/error-type';
 import { RegisterServiceResponse } from '../../usecases/service/types/response-type';
-import {
-  badRequest,
-  serverError,
-  successRequest,
-} from '../helpers/http.helper';
+import { badRequest, serverError, successRequest } from '../helpers/http.helper';
 import { Controller } from '../ports/controller';
 import { HttpRequest, HttpResponse } from '../ports/http';
 
@@ -25,11 +21,12 @@ export class RegisterServiceController implements Controller {
         url: httpRequest.body.url,
         owner: httpRequest.body.owner,
         incidents: [],
-        status: 'pass',
+        status: 'pass'
       };
 
-      const registerServiceResponse: RegisterServiceResponse =
-        await this.registerService.registerServiceOnStore(serviceData);
+      const registerServiceResponse: RegisterServiceResponse = await this.registerService.registerServiceOnStore(
+        serviceData
+      );
 
       if (registerServiceResponse instanceof RegisterServiceError) {
         return badRequest(registerServiceResponse);

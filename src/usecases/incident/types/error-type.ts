@@ -13,3 +13,10 @@ export class UpdateIncidentError extends Error implements UseCaseError {
     this.name = 'UpdateIncidentError';
   }
 }
+
+export class GetIncidentHistoryError extends Error implements UseCaseError {
+  constructor(message: string) {
+    super(message);
+    this.name = 'UpdateIncidentError';
+  }
+}
