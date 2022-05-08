@@ -1,11 +1,11 @@
-import { ServiceData } from '../../../entities/service/service-data';
-import { ServiceRepository } from '../../../usecases/ports/service-repository';
 import { v4 as uuidv4 } from 'uuid';
 
+import { ServiceData } from '../../../entities/service/service-data';
+import { IncidentData } from '../../../entities/incident/incident-data';
+import { ServiceRepository } from '../../../usecases/ports/service-repository';
+import { MONTHS } from '../../../shared/utils';
+
 export class InMemoryRepository implements ServiceRepository {
-  getIncidentsByMonth(month: number, limit: number): Promise<ServiceData> {
-    throw new Error('Method not implemented.');
-  }
   private data: ServiceData[] = [];
 
   async create(service: ServiceData): Promise<ServiceData> {
@@ -13,6 +13,31 @@ export class InMemoryRepository implements ServiceRepository {
     return service;
   }
 
+  async getIncidentsByMonth(month: Date, limit: number): Promise<{ [key: string]: IncidentData }[]> {
+    const incidentsByDate: { [key: string]: IncidentData }[] = [];
+
+    for (const service of this.data) {
+      const incidentByDate = service.incidents
+        .filter((incident) => {
+          if (incident.date.getTime() >= month.getTime()) {
+            return incident;
+          }
+        })
+        .map((incident) => {
+          const monthNumber = incident.date.getMonth() + 1;
+          const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
+
+          const mapIncident = { [monthName]: incident };
+          return mapIncident;
+        });
+
+      if (incidentByDate.length) {
+        incidentsByDate.push(...incidentByDate);
+      }
+    }
+
+    return incidentsByDate;
+  }
   async createIncident(service: ServiceData, description?: string): Promise<ServiceData> {
     const defaultIncident = {
       id: uuidv4(),

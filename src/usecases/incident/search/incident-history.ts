@@ -1,3 +1,3 @@
 export interface IncidentHistory {
-  incidentHistory(): Promise<any>;
+  incidentHistory(month: Date, limit: number): Promise<any>;
 }

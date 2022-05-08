@@ -13,8 +13,7 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 
 ## TO DO
 - [ ] Remove UUID like dependecy 
-- [ ] Continued with incident history
-
+- [ ] Create Route for incident history
 ## Stack
 
 Tecnology stack for this repos
