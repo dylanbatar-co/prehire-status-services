@@ -14,7 +14,7 @@ describe('Get Incident History USECASE', () => {
         incidents: [
           {
             id: '1',
-            name: 'Fake service 1',
+            name: 'Fake incident service 1',
             fixed: true,
             description: '',
             date: new Date('2022/01/01')
@@ -30,7 +30,7 @@ describe('Get Incident History USECASE', () => {
         incidents: [
           {
             id: '2',
-            name: 'Fake service 2',
+            name: 'Fake incident service 2',
             fixed: true,
             description: '',
             date: new Date('2022/04/01')
@@ -46,14 +46,14 @@ describe('Get Incident History USECASE', () => {
         incidents: [
           {
             id: '3',
-            name: 'Fake service 3',
+            name: 'Fake incident service 3',
             fixed: true,
             description: '',
             date: new Date('2022/09/01')
           },
           {
-            id: '3',
-            name: 'Fake service 3',
+            id: '4',
+            name: 'Fake incident service 4',
             fixed: true,
             description: '',
             date: new Date('2022/06/01')
@@ -61,15 +61,15 @@ describe('Get Incident History USECASE', () => {
         ]
       },
       {
-        uuid: '4',
-        name: 'Fake service 4',
-        owner: 'Fake owener 4',
+        uuid: '5',
+        name: 'Fake service 5',
+        owner: 'Fake owener 5',
         url: 'Fake url 4',
         status: 'pass',
         incidents: [
           {
-            id: '4',
-            name: 'Fake service 4',
+            id: '5',
+            name: 'Fake incident service 5',
             fixed: true,
             description: '',
             date: new Date('2022/05/01')
@@ -84,11 +84,9 @@ describe('Get Incident History USECASE', () => {
 
     const getIncidentHistory = new GetIncidentHistory(inMemoryRepository);
 
-    const MONTH_TO_FILTER = new Date('2022/07/01');
+    const MONTH_TO_FILTER = new Date('2022/06/01');
 
     const incidentHistory = await getIncidentHistory.incidentHistory(MONTH_TO_FILTER);
-
-    console.log(incidentHistory);
 
     expect(incidentHistory).toHaveLength(3);
   });

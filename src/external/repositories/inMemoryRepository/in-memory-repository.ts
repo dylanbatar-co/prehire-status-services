@@ -25,9 +25,13 @@ export class InMemoryRepository implements ServiceRepository {
         })
         .map((incident) => {
           // arreglar la condicion de las fechas por rango
-          console.log(month);
-          console.log({ incident: incident.date.getTime(), month: month.getTime() });
-          if (incident.date.getTime() >= month.getTime() && incident.date.getTime() <= month.getTime()) {
+          const majorDate = new Date(month);
+          majorDate.setMonth(majorDate.getMonth() + 2);
+
+          const minorLimit = incident.date.getTime() >= month.getTime();
+          const majorLimit = incident.date.getTime() <= majorDate.getTime();
+
+          if (minorLimit && majorLimit) {
             const monthNumber = incident.date.getMonth();
             const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
 
@@ -37,7 +41,7 @@ export class InMemoryRepository implements ServiceRepository {
         });
 
       if (incidentByDate.length) {
-        incidentsByDate.push(...incidentByDate);
+        incidentsByDate.push(...incidentByDate.filter(Boolean));
       }
     }
 
