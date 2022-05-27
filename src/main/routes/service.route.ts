@@ -4,8 +4,9 @@ import { makeGetStatusServices, makeRegisterServiceController } from '../factori
 import { validateContract } from '../middleware/celebrate-contract';
 import { getStatusServicesValidation, registerServiceValidation } from '../validations/service';
 
-export default (router: Router) => {
-  router.post('/', validateContract(registerServiceValidation), adapterRouter(makeRegisterServiceController()));
+const router = Router();
 
-  router.get('/:owner', validateContract(getStatusServicesValidation), adapterRouter(makeGetStatusServices()));
-};
+router.post('/', validateContract(registerServiceValidation), adapterRouter(makeRegisterServiceController()));
+router.get('/:owner', validateContract(getStatusServicesValidation), adapterRouter(makeGetStatusServices()));
+
+export default router;

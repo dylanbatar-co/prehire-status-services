@@ -1,4 +1,4 @@
-import { GetStatusServices } from '../../usecases/service/search/get-status-service';
+import { GetStatus } from '../../usecases/service/search/get-status';
 import { GetStatusServicesError } from '../../usecases/service/types/error-type';
 import { GetStatusServicesResponse } from '../../usecases/service/types/response-type';
 import { badRequest, serverError, successRequest } from '../helpers/http.helper';
@@ -6,8 +6,8 @@ import { Controller } from '../ports/controller';
 import { HttpRequest, HttpResponse } from '../ports/http';
 
 export class GetStatusServicesController implements Controller {
-  private readonly getServices: GetStatusServices;
-  constructor(getStatusServices: GetStatusServices) {
+  private readonly getServices: GetStatus;
+  constructor(getStatusServices: GetStatus) {
     this.getServices = getStatusServices;
   }
 

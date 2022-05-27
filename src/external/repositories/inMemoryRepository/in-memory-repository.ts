@@ -24,11 +24,16 @@ export class InMemoryRepository implements ServiceRepository {
           }
         })
         .map((incident) => {
-          const monthNumber = incident.date.getMonth() + 1;
-          const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
+          // arreglar la condicion de las fechas por rango
+          console.log(month);
+          console.log({ incident: incident.date.getTime(), month: month.getTime() });
+          if (incident.date.getTime() >= month.getTime() && incident.date.getTime() <= month.getTime()) {
+            const monthNumber = incident.date.getMonth();
+            const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
 
-          const mapIncident = { [monthName]: incident };
-          return mapIncident;
+            const mapIncident = { [monthName]: incident };
+            return mapIncident;
+          }
         });
 
       if (incidentByDate.length) {

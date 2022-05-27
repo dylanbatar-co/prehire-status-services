@@ -33,7 +33,7 @@ describe('Get Incident History USECASE', () => {
             name: 'Fake service 2',
             fixed: true,
             description: '',
-            date: new Date('2022/01/01')
+            date: new Date('2022/04/01')
           }
         ]
       },
@@ -49,7 +49,7 @@ describe('Get Incident History USECASE', () => {
             name: 'Fake service 3',
             fixed: true,
             description: '',
-            date: new Date('2022/06/01')
+            date: new Date('2022/09/01')
           },
           {
             id: '3',
@@ -87,6 +87,8 @@ describe('Get Incident History USECASE', () => {
     const MONTH_TO_FILTER = new Date('2022/07/01');
 
     const incidentHistory = await getIncidentHistory.incidentHistory(MONTH_TO_FILTER);
+
+    console.log(incidentHistory);
 
     expect(incidentHistory).toHaveLength(3);
   });

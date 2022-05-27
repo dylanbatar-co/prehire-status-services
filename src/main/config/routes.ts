@@ -1,12 +1,10 @@
 import { Express, Router } from 'express';
-import { readdirSync } from 'fs';
+
+import { incidentRoute, serviceRoute } from '../routes';
 
 export default (app: Express): void => {
   const router = Router();
   app.use('/api', router);
-  readdirSync(`${__dirname}/../routes`).map(async (file) => {
-    if (!file.includes('.test.')) {
-      (await import(`../routes/${file}`)).default(router);
-    }
-  });
+  router.use('/service', serviceRoute);
+  router.use('/incident', incidentRoute);
 };
