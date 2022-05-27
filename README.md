@@ -12,7 +12,8 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 - [ ] Create PDF on demand with the status services
 
 ## TO DO
-- [ ] Remove UUID like dependecy 
+- [ ] Remove UUID like dependecy
+- [ ] Read puppter documentation https://pptr.dev/#?product=Puppeteer&version=v14.1.1&show=api-pagescreenshotoptions
 
 ## Stack
 
