@@ -7,7 +7,7 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 ## Features
 
 - [x]  Get the health status of services
-- [ ] History of incidents for each service
+- [x] History of incidents for each service
 - [ ] Send Report to slack channels
 - [ ] Create PDF on demand with the status services
 
