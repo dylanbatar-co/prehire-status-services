@@ -1,3 +1,3 @@
 export interface MakeReport {
-  createPDF(): Promise<any>;
+  createPDF(data: { url: string; path: string }[]): Promise<any>;
 }
