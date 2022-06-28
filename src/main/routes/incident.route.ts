@@ -6,6 +6,10 @@ import { getIncidentHistoryValidation } from '../validations/incident';
 
 const router = Router();
 
-router.get('/history/:date', validateContract(getIncidentHistoryValidation), adapterRouterJson(makeGetIncidentHistory()));
+router.get(
+  '/history/:date',
+  validateContract(getIncidentHistoryValidation),
+  adapterRouterJson(makeGetIncidentHistory())
+);
 
 export default router;

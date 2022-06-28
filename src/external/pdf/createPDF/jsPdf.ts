@@ -1,5 +1,4 @@
 import { jsPDF } from 'jspdf';
-import { unlink } from 'fs';
 import { MakeReport } from '../../../usecases/ports/report';
 import { ReportData } from '../../../entities/report/report-data';
 

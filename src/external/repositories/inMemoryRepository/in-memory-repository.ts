@@ -25,6 +25,10 @@ export class InMemoryRepository implements ServiceRepository {
       }
     }
 
+    if (limit) {
+      incidentsByDate.length = limit;
+    }
+
     return incidentsByDate;
   }
   async createIncident(service: ServiceData, description?: string): Promise<ServiceData> {

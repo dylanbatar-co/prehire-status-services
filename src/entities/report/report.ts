@@ -11,7 +11,18 @@ export class Report {
 
   public static getName(): string {
     const date = new Date();
-    const name = `REPORT_${date.getMonth()}-${date.getDate()}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}.pdf`;
-    return name;
+    return (
+      'REPORT_' +
+      date.getMonth() +
+      '-' +
+      date.getDate() +
+      '-' +
+      date.getFullYear() +
+      '-' +
+      date.getHours() +
+      '-' +
+      date.getMinutes() +
+      '.pdf'
+    );
   }
 }

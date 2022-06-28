@@ -22,7 +22,7 @@ export class GenerateReportController implements Controller {
 
       return successRequest(reportFile);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return badRequest(error);
     }
   }
