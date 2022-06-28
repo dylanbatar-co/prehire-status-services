@@ -1,17 +1,17 @@
 import { ReportData } from './report-data';
 
 export class Report {
-  private serviceToReport: ReportData[] = [];
-
   public static create(report: ReportData): ReportData {
-    if (!report.owner || !report.url) {
+    if (!report.url) {
       return;
     }
 
     return report;
   }
 
-  public getServiceToReport(): ReportData[] {
-    return this.serviceToReport;
+  public static getName(): string {
+    const date = new Date();
+    const name = `REPORT_${date.getMonth()}-${date.getDate()}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}.pdf`;
+    return name;
   }
 }

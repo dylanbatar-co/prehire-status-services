@@ -1,3 +1,5 @@
+import { MakeReportResponse } from "../types/response-types";
+
 export interface MakeReport {
-  makeReport(): Promise<any>;
+  makeReport(owner: string): Promise<MakeReportResponse>;
 }

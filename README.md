@@ -13,7 +13,12 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 
 ## TO DO
 - [ ] Remove UUID like dependecy
-- [ ] Read puppter documentation https://pptr.dev/#?product=Puppeteer&version=v14.1.1&show=api-pagescreenshotoptions
+- [x] Handle puppeteer connections
+- [x] Download PDF
+- [x] WTF with duplicity base64
+- [ ] ADD UNIT TESTING
+- [ ] type of report useCase
+- [ ] Handling error report useCase
 
 ## Stack
 

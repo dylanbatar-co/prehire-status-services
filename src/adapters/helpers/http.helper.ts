@@ -2,7 +2,7 @@ import { HttpResponse } from '../ports/http';
 
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
-  body: error.message
+  body: error.message || error
 });
 
 export function successRequest<T>(data: T): HttpResponse {

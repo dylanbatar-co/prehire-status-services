@@ -1,4 +1,5 @@
 export interface ReportData {
-  owner: string;
   url: string;
+  path?: string;
+  image: string | Buffer;
 }
