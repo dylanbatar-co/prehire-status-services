@@ -1,4 +1,3 @@
-import { IncidentData } from '../../entities/incident/incident-data';
 import { ServiceData } from '../../entities/service/service-data';
 
 export interface ServiceRepository {
@@ -8,5 +7,5 @@ export interface ServiceRepository {
   findByUUID(uuid: string): Promise<ServiceData>;
   findServiceByOwner(owner: string): Promise<ServiceData[]>;
   updateService(id: string, data: ServiceData): Promise<ServiceData>;
-  getIncidentsByMonth(month: Date, limit: number): Promise<{ [key: string]: IncidentData }[]>;
+  getIncidentsByMonth(month: Date, limit: number): Promise<ServiceData[]>;
 }

@@ -1,9 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { ServiceData } from '../../../entities/service/service-data';
-import { IncidentData } from '../../../entities/incident/incident-data';
 import { ServiceRepository } from '../../../usecases/ports/service-repository';
-import { MONTHS } from '../../../shared/utils';
 
 export class InMemoryRepository implements ServiceRepository {
   private data: ServiceData[] = [];
@@ -13,36 +11,22 @@ export class InMemoryRepository implements ServiceRepository {
     return service;
   }
 
-  async getIncidentsByMonth(month: Date, limit: number): Promise<{ [key: string]: IncidentData }[]> {
-    const incidentsByDate: { [key: string]: IncidentData }[] = [];
-
+  async getIncidentsByMonth(month: Date, limit: number): Promise<ServiceData[]> {
+    const incidentsByDate: ServiceData[] = [];
     for (const service of this.data) {
-      const incidentByDate = service.incidents
-        .filter((incident) => {
-          if (incident.date.getTime() >= month.getTime()) {
-            return incident;
-          }
-        })
-        .map((incident) => {
-          // arreglar la condicion de las fechas por rango
-          const majorDate = new Date(month);
-          majorDate.setMonth(majorDate.getMonth() + 2);
-
-          const minorLimit = incident.date.getTime() >= month.getTime();
-          const majorLimit = incident.date.getTime() <= majorDate.getTime();
-
-          if (minorLimit && majorLimit) {
-            const monthNumber = incident.date.getMonth();
-            const monthName = `${MONTHS[monthNumber]} ${incident.date.getFullYear()}`;
-
-            const mapIncident = { [monthName]: incident };
-            return mapIncident;
-          }
-        });
+      const incidentByDate = service.incidents.filter((incident) => {
+        if (incident.date.getTime() >= month.getTime()) {
+          return incident;
+        }
+      });
 
       if (incidentByDate.length) {
-        incidentsByDate.push(...incidentByDate.filter(Boolean));
+        incidentsByDate.push(service);
       }
+    }
+
+    if (limit) {
+      incidentsByDate.length = limit;
     }
 
     return incidentsByDate;
