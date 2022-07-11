@@ -9,16 +9,18 @@ is building with **TYPESCRIPT** and implementing [Clean architecture](https://bl
 - [x]  Get the health status of services
 - [x] History of incidents for each service
 - [ ] Send Report to slack channels
-- [ ] Create PDF on demand with the status services
+- [x] Create PDF on demand with the status services
 
 ## TO DO
 - [ ] Remove UUID like dependecy
 - [x] Handle puppeteer connections
 - [x] Download PDF
 - [x] WTF with duplicity base64
-- [ ] ADD UNIT TESTING
-- [ ] type of report useCase
-- [ ] Handling error report useCase
+- [x] ADD UNIT TESTING
+- [x] type of report useCase
+- [x] Handling error report useCase
+- [x] Fix integrations test
+- [ ] Refactor logic to get incident between dates
 
 ## Stack
 
